@@ -28,3 +28,11 @@ a {
     background: black;
   }
 }
+
+.card {
+  @apply mb-2 block rounded-lg border-gray-200 shadow-md p-4 space-y-2;
+}
+
+.cart-btn {
+  @apply bg-yellow-500 w-full rounded-md p-1.5;
+}
