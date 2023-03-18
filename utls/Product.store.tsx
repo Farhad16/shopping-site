@@ -1,4 +1,5 @@
 import { createContext, useReducer, useContext } from "react";
+import Cookies from "js-cookie";
 
 export enum ProductEnum {
   ADD_TO_CART = "add_to_cart",
@@ -12,7 +13,9 @@ export function useProductStore() {
 }
 
 const initialState = {
-  cart: { cartItems: [] },
+  cart: Cookies.get("cart")
+    ? JSON.parse(Cookies.get("cart") || "")
+    : { cartItems: [] },
 };
 
 function reducer(state: any, action: any) {
@@ -27,6 +30,7 @@ function reducer(state: any, action: any) {
             item.name === newItem.name ? newItem : item
           )
         : [...state.cart.cartItems, newItem];
+      Cookies.set("cart", JSON.stringify({ ...state.cart, cartItems }));
       return { ...state, cart: { ...state.cart, cartItems } };
     }
     case ProductEnum.REMOVE_FROM_CART: {
@@ -34,6 +38,7 @@ function reducer(state: any, action: any) {
       const cartItems = state.cart.cartItems.filter(
         (item: any) => item.slug !== removeItem.slug
       );
+      Cookies.set("cart", JSON.stringify({ ...state.cart, cartItems }));
       return { ...state, cart: { ...state.cart, cartItems } };
     }
     default:

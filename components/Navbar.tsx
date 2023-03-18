@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Badge from "@mui/material/Badge";
 import { useProductStore } from "../utls/Product.store";
@@ -7,9 +7,17 @@ import { useProductStore } from "../utls/Product.store";
 function Navbar() {
   const { state } = useProductStore();
   const { cart } = state;
-  const cartQuantity =
-    cart?.cartItems?.length &&
-    cart?.cartItems?.reduce((acc: any, item: any) => acc + item.quantity, 0);
+  const [cartQuantity, setCartQuantity] = useState(0);
+
+  useEffect(() => {
+    if (cart?.cartItems?.length) {
+      const qn = cart?.cartItems?.reduce(
+        (acc: any, item: any) => acc + item.quantity,
+        0
+      );
+      setCartQuantity(qn);
+    }
+  }, [cart?.cartItems]);
 
   return (
     <nav className="flex h-12 justify-between shadow-md items-center px-12">
