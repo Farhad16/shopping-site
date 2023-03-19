@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
 import { useForm, Controller } from "react-hook-form";
 import TextField from "@mui/material/TextField";
@@ -7,9 +7,24 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
 import Link from "next/link";
-import ErrorIcon from "@mui/icons-material/Error";
+import { signIn, useSession } from "next-auth/react";
+import { toast } from "react-toastify";
+import { useRouter, useSearchParams } from "next/navigation";
+import { CircularProgress } from "@mui/material";
 
 function Login() {
+  const { data: session } = useSession();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const redirect = searchParams.get("redirect");
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (session?.user) {
+      router.push(redirect || "/");
+    }
+  }, [router, redirect, session]);
+
   const {
     handleSubmit,
     control,
@@ -32,7 +47,25 @@ function Login() {
     event.preventDefault();
   };
 
-  const onSubmit = (data: any) => console.log(data);
+  const onSubmit = async (data: any) => {
+    setLoading(true);
+    try {
+      const result = await signIn("credentials", {
+        redirect: false,
+        email: data.email,
+        password: data.password,
+      });
+      if (result?.error) {
+        toast.error(result.error);
+      }
+    } catch (err: any) {
+      if (err?.response?.data?.message) {
+        toast.error(err?.response?.data?.message);
+      } else toast.error(err?.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <Layout title="Login">
@@ -122,8 +155,16 @@ function Login() {
             )}
           </div>
         </div>
-        <button className="cart-btn font-semibold h-[45px]" type="submit">
-          Submit
+        <button
+          className="cart-btn font-semibold h-[45px]"
+          type="submit"
+          disabled={loading}
+        >
+          {loading ? (
+            <CircularProgress size={25} className="text-white" />
+          ) : (
+            "Submit"
+          )}
         </button>
         <div className="flex justify-between text-[14px] flex-row items-center">
           <Link href="/forgot-password">Forgot password?</Link>

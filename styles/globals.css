@@ -36,3 +36,17 @@ a {
 .cart-btn {
   @apply bg-yellow-500 w-full rounded-md p-1.5;
 }
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgba(213, 213, 213, 0.2);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
+}

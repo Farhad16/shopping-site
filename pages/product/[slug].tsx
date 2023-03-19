@@ -1,4 +1,4 @@
-import { useRouter } from "next/router";
+import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 import Layout from "../../components/Layout";
 import { data } from "../../utls/staticData";
@@ -10,9 +10,9 @@ import { IProduct } from "./interfaces/product.interface";
 import { toast } from "react-toastify";
 
 const ProductDetails = () => {
-  const { query } = useRouter();
   const router = useRouter();
-  const { slug } = query;
+  const searchParams = useSearchParams();
+  const slug = searchParams.get("slug");
   const product = data?.products.find((pro: IProduct) => pro.slug === slug);
   const { state, dispatch } = useProductStore();
 

@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 export enum ProductEnum {
   ADD_TO_CART = "add_to_cart",
   REMOVE_FROM_CART = "remove_from_cart",
+  CART_RESET = "reset_cart",
 }
 
 export const ProductStore = createContext({} as any);
@@ -40,6 +41,16 @@ function reducer(state: any, action: any) {
       );
       Cookies.set("cart", JSON.stringify({ ...state.cart, cartItems }));
       return { ...state, cart: { ...state.cart, cartItems } };
+    }
+    case ProductEnum.CART_RESET: {
+      return {
+        ...state,
+        cart: {
+          cartItems: [],
+          shippingAddress: { location: {} },
+          paymentMethod: "",
+        },
+      };
     }
     default:
       return state;
