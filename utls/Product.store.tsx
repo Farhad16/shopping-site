@@ -5,18 +5,19 @@ export enum ProductEnum {
   ADD_TO_CART = "add_to_cart",
   REMOVE_FROM_CART = "remove_from_cart",
   CART_RESET = "reset_cart",
+  SAVE_SHIPPING_ADDRESS = "save_shipping_address",
 }
 
 export const ProductStore = createContext({} as any);
 
-export function useProductStore() {
+export function useProductContext() {
   return useContext(ProductStore);
 }
 
 const initialState = {
   cart: Cookies.get("cart")
     ? JSON.parse(Cookies.get("cart") || "")
-    : { cartItems: [] },
+    : { cartItems: [], shippingAddress: {} },
 };
 
 function reducer(state: any, action: any) {
@@ -49,6 +50,18 @@ function reducer(state: any, action: any) {
           cartItems: [],
           shippingAddress: { location: {} },
           paymentMethod: "",
+        },
+      };
+    }
+    case ProductEnum.SAVE_SHIPPING_ADDRESS: {
+      return {
+        ...state,
+        cart: {
+          ...state.cart,
+          shippingAddress: {
+            ...state.cart.shippingAddress,
+            ...action.payload,
+          },
         },
       };
     }

@@ -6,10 +6,10 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import Cookies from "js-cookie";
-import { ProductEnum, useProductStore } from "../utls/Product.store";
+import { ProductEnum, useProductContext } from "../utls/Product.store";
 
 function ProfilePopup({ user }: any) {
-  const { dispatch } = useProductStore();
+  const { dispatch } = useProductContext();
 
   const handleLogout = () => {
     signOut({ callbackUrl: "/login" });
@@ -38,7 +38,7 @@ function ProfilePopup({ user }: any) {
   return (
     <Menu.Items className="absolute right-1 origin-top-right bg-white shadow-lg rounded-lg">
       {menu.map((menuItem) => (
-        <Menu.Item>
+        <Menu.Item key={menuItem.title}>
           <Link href={menuItem.url}>
             <div
               className="flex flex-row px-2 my-1 items-center gap-2 hover:bg-[#e8e8e8]"

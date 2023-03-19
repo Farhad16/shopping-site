@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "../../components/Layout";
-import { ProductEnum, useProductStore } from "../../utls/Product.store";
+import { ProductEnum, useProductContext } from "../../utls/Product.store";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import Image from "next/image";
 import CancelIcon from "@mui/icons-material/Cancel";
@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 
 const CartItems = () => {
-  const { state, dispatch } = useProductStore();
+  const { state, dispatch } = useProductContext();
   const {
     cart: { cartItems },
   } = state;

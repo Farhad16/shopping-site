@@ -5,7 +5,7 @@ import { data } from "../../utls/staticData";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import Image from "next/image";
 import Link from "next/link";
-import { ProductEnum, useProductStore } from "../../utls/Product.store";
+import { ProductEnum, useProductContext } from "../../utls/Product.store";
 import { IProduct } from "./interfaces/product.interface";
 import { toast } from "react-toastify";
 
@@ -14,7 +14,7 @@ const ProductDetails = () => {
   const searchParams = useSearchParams();
   const slug = searchParams.get("slug");
   const product = data?.products.find((pro: IProduct) => pro.slug === slug);
-  const { state, dispatch } = useProductStore();
+  const { state, dispatch } = useProductContext();
 
   if (!product) return <div>Product not found</div>;
 

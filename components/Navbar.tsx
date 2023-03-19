@@ -2,7 +2,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Badge from "@mui/material/Badge";
-import { useProductStore } from "../utls/Product.store";
+import { useProductContext } from "../utls/Product.store";
 import { useSession } from "next-auth/react";
 import { CircularProgress, Tooltip } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
@@ -10,7 +10,7 @@ import { Menu } from "@headlessui/react";
 import ProfilePopup from "./ProfilePopup";
 
 function Navbar() {
-  const { state } = useProductStore();
+  const { state } = useProductContext();
   const { cart } = state;
   const [cartQuantity, setCartQuantity] = useState(0);
   const { status, data: session } = useSession();
@@ -39,7 +39,7 @@ function Navbar() {
         {status === "loading" ? (
           <CircularProgress size={15} />
         ) : session?.user?.name ? (
-          <Menu as="div">
+          <Menu as="div" className="z-50">
             <Menu.Button>
               <Tooltip title={session.user.name} arrow>
                 <Avatar className="uppercase">
