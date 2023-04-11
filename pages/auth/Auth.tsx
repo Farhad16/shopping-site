@@ -5,7 +5,7 @@ import { CircularProgress } from "@mui/material";
 
 function Auth({ children }: any) {
   const router = useRouter();
-  const { status, ...rest } = useSession({
+  const { status } = useSession({
     required: true,
     onUnauthenticated() {
       router.push("/unauthorized");

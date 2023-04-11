@@ -25,7 +25,6 @@ function Login() {
   const {
     handleSubmit,
     control,
-    reset,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -105,7 +104,7 @@ function Login() {
             <div className="flex justify-between text-[14px] flex-row items-center">
               <Link href="/forgot-password">Forgot password?</Link>
               <p>
-                Don't have an account?
+                Don&apos;t have an account?
                 <Link href="/register" className="font-semibold ml-2 underline">
                   Register
                 </Link>

@@ -8,7 +8,7 @@ import { signOut } from "next-auth/react";
 import Cookies from "js-cookie";
 import { ProductEnum, useProductContext } from "../utils/Product.store";
 
-function ProfilePopup({ user }: any) {
+function ProfilePopup() {
   const { dispatch } = useProductContext();
 
   const handleLogout = () => {

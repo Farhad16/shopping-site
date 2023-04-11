@@ -52,7 +52,6 @@
     }
   },
   "lint-staged": {
-    "pages/*.{js,ts,jsx,tsx}": "eslint --fix",
-    "!(pages/api*)*.ts": "eslint --fix"
+    "pages/*.{js,ts,jsx,tsx}": "eslint --fix"
   }
 }

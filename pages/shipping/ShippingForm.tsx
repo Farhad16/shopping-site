@@ -12,7 +12,6 @@ function ShippingForm({ setActiveStep }: any) {
   const {
     handleSubmit,
     control,
-    reset,
     setValue,
     formState: { errors },
   } = useForm({
@@ -33,7 +32,7 @@ function ShippingForm({ setActiveStep }: any) {
     setValue("postalCode", shippingAddress?.postalCode);
     setValue("state", shippingAddress?.state);
     setValue("country", shippingAddress?.country);
-  }, [, setValue, shippingAddress]);
+  }, [setValue, shippingAddress]);
 
   const onSubmit = async (data: any) => {
     dispatch({ type: ProductEnum.SAVE_SHIPPING_ADDRESS, payload: { ...data } });

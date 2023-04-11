@@ -5,6 +5,7 @@ import { Notification } from "./notification/Notification";
 import { SessionProvider } from "next-auth/react";
 import Auth from "./auth/Auth";
 import type { NextComponentType } from "next";
+import React from "react";
 
 type CustomAppProps = AppProps & {
   Component: NextComponentType & { auth?: boolean };
