@@ -52,6 +52,6 @@
     }
   },
   "lint-staged": {
-    "*.{js,ts,tsx,html,json}": "eslint"
+    "*.{js,ts,tsx,html,json}": "npm run lint"
   }
 }
