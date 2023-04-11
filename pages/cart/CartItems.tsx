@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "../../components/Layout";
-import { ProductEnum, useProductContext } from "../../utls/Product.store";
+import { ProductEnum, useProductContext } from "../../utils/Product.store";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import Image from "next/image";
 import CancelIcon from "@mui/icons-material/Cancel";

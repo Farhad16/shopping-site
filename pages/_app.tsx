@@ -1,13 +1,13 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { ProductStoreProvider } from "../utls/Product.store";
+import { ProductStoreProvider } from "../utils/Product.store";
 import { Notification } from "./notification/Notification";
 import { SessionProvider } from "next-auth/react";
 import Auth from "./auth/Auth";
 import type { NextComponentType } from "next";
 
 type CustomAppProps = AppProps & {
-  Component: NextComponentType & { auth?: boolean }; // add auth type
+  Component: NextComponentType & { auth?: boolean };
 };
 
 export default function App({

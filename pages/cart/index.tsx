@@ -6,8 +6,13 @@ import Layout from "../../components/Layout";
 const CartItems = dynamic(() => import("./CartItems"), {
   ssr: false,
   loading({ isLoading }) {
-    if (isLoading) return <CircularProgress />;
-    return undefined;
+    if (isLoading)
+      return (
+        <Layout>
+          <CircularProgress className="absolute top-[50%] right-[50%]" />
+        </Layout>
+      );
+    return null;
   },
 });
 

@@ -2,7 +2,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Badge from "@mui/material/Badge";
-import { useProductContext } from "../utls/Product.store";
+import { useProductContext } from "../utils/Product.store";
 import { useSession } from "next-auth/react";
 import { CircularProgress, Tooltip } from "@mui/material";
 import Avatar from "@mui/material/Avatar";

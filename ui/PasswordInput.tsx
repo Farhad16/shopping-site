@@ -26,7 +26,7 @@ function PasswordInput({
   return (
     <div>
       <span className="font-semibold">{label}</span>
-      <div className={controllerClassName}>
+      <div className={`${controllerClassName}, mt-2`}>
         <Controller
           name="password"
           control={control}

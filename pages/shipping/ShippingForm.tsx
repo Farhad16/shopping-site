@@ -2,9 +2,9 @@ import Cookies from "js-cookie";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import FormInput from "../../ui/FormInput";
-import { ProductEnum, useProductContext } from "../../utls/Product.store";
+import { ProductEnum, useProductContext } from "../../utils/Product.store";
 
-function ShippingForm() {
+function ShippingForm({ setActiveStep }: any) {
   const { dispatch, state } = useProductContext();
   const { cart } = state;
   const { shippingAddress } = cart;
@@ -41,6 +41,9 @@ function ShippingForm() {
       "cart",
       JSON.stringify({ ...cart, shippingAddress: { ...data } })
     );
+    setActiveStep((prev: any) => {
+      return prev + 1;
+    });
   };
 
   return (
@@ -62,7 +65,7 @@ function ShippingForm() {
         type="text"
         control={control}
       />
-      <div className="flex sm:flex-row flex-col items-center w-full justify-between gap-4">
+      <div className="flex sm:flex-row flex-col w-full justify-between gap-4">
         <FormInput
           containerClass="sm:w-1/2 w-full"
           label="Address"
@@ -88,7 +91,7 @@ function ShippingForm() {
           control={control}
         />
       </div>
-      <div className="flex sm:flex-row flex-col items-center w-full justify-between gap-4">
+      <div className="flex sm:flex-row flex-col w-full justify-between gap-4">
         <FormInput
           containerClass="sm:w-1/2 w-full"
           label="State"
@@ -112,6 +115,7 @@ function ShippingForm() {
           placeholder="Enter your post code"
           type="text"
           control={control}
+          controllerClassName="mt-2"
         />
       </div>
 

@@ -1,11 +1,11 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 import Layout from "../../components/Layout";
-import { data } from "../../utls/staticData";
+import { data } from "../../utils/staticData";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import Image from "next/image";
 import Link from "next/link";
-import { ProductEnum, useProductContext } from "../../utls/Product.store";
+import { ProductEnum, useProductContext } from "../../utils/Product.store";
 import { IProduct } from "./interfaces/product.interface";
 import { toast } from "react-toastify";
 
@@ -53,7 +53,6 @@ const ProductDetails = () => {
             alt={product.slug}
             width={640}
             height={640}
-            layout="responsive"
           />
         </div>
         <div>

@@ -1,6 +1,6 @@
 import User from "../../models/User";
-import db from "../../utls/db";
-import { data } from "../../utls/staticData";
+import db from "../../utils/db";
+import { data } from "../../utils/staticData";
 
 const handler = async (req: any, res: any) => {
   await db.connect();

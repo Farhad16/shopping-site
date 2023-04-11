@@ -11,12 +11,18 @@ const steps = [
   "Place order",
 ];
 
-function StepHandler({ activeStep }: any) {
+function StepHandler({ activeStep, setActiveStep }: any) {
   return (
     <Box sx={{ width: "100%" }}>
       <Stepper activeStep={activeStep} alternativeLabel>
-        {steps.map((label) => (
-          <Step key={label}>
+        {steps.map((label, idx) => (
+          <Step
+            key={label}
+            onClick={() =>
+              activeStep > idx && idx > 0 ? setActiveStep(idx) : null
+            }
+            className="cursor-pointer"
+          >
             <StepLabel>{label}</StepLabel>
           </Step>
         ))}

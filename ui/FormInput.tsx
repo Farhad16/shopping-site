@@ -18,7 +18,7 @@ function FormInput({
   return (
     <div className={containerClass}>
       <span className="font-semibold">{label}</span>
-      <div className={controllerClassName}>
+      <div className={`${controllerClassName} mt-2`}>
         <Controller
           name={name}
           control={control}
@@ -38,7 +38,7 @@ function FormInput({
             />
           )}
         />
-        {error && <p className="text-sm text-red-500">{error}</p>}
+        {error && <p className="font-semibold errorColor">{error}</p>}
       </div>
     </div>
   );

@@ -6,7 +6,7 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import Cookies from "js-cookie";
-import { ProductEnum, useProductContext } from "../utls/Product.store";
+import { ProductEnum, useProductContext } from "../utils/Product.store";
 
 function ProfilePopup({ user }: any) {
   const { dispatch } = useProductContext();

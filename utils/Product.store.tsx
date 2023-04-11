@@ -6,6 +6,7 @@ export enum ProductEnum {
   REMOVE_FROM_CART = "remove_from_cart",
   CART_RESET = "reset_cart",
   SAVE_SHIPPING_ADDRESS = "save_shipping_address",
+  SAVE_PAYMENT_METHOD = "save_payment_method",
 }
 
 export const ProductStore = createContext({} as any);
@@ -17,7 +18,7 @@ export function useProductContext() {
 const initialState = {
   cart: Cookies.get("cart")
     ? JSON.parse(Cookies.get("cart") || "")
-    : { cartItems: [], shippingAddress: {} },
+    : { cartItems: [], shippingAddress: {}, paymentMethod: "" },
 };
 
 function reducer(state: any, action: any) {
@@ -62,6 +63,15 @@ function reducer(state: any, action: any) {
             ...state.cart.shippingAddress,
             ...action.payload,
           },
+        },
+      };
+    }
+    case ProductEnum.SAVE_PAYMENT_METHOD: {
+      return {
+        ...state,
+        cart: {
+          ...state.cart,
+          paymentMethod: action.payload,
         },
       };
     }
