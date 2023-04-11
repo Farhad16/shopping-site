@@ -34,7 +34,7 @@ function ShippingForm({ setActiveStep }: any) {
     setValue("state", shippingAddress?.state);
     setValue("country", shippingAddress?.country);
   }, [, setValue, shippingAddress]);
-  console.log(cart);
+
   const onSubmit = async (data: any) => {
     dispatch({ type: ProductEnum.SAVE_SHIPPING_ADDRESS, payload: { ...data } });
     Cookies.set(
