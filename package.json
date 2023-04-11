@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prepare": "husky install"
   },
   "browser": {
     "child_process": false
@@ -43,5 +44,8 @@
     "eslint-plugin-react": "^7.32.2",
     "postcss": "^8.4.21",
     "tailwindcss": "^3.3.1"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx,html,json}": "yarn lint"
   }
 }
