@@ -1,7 +1,6 @@
 import React, { useEffect, useReducer } from "react";
 import Layout from "../../components/Layout";
 import { useRouter } from "next/router";
-import Order from "../../models/Order";
 import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
@@ -21,7 +20,6 @@ function reducer(state: any, action: any) {
 }
 
 function OrderDetails() {
-  const router = useRouter();
   const { query } = useRouter();
   const { id } = query;
   const [{ loading, error, order }, dispatch] = useReducer(reducer, {

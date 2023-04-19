@@ -1,4 +1,4 @@
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React from "react";
 import Layout from "../../components/Layout";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";

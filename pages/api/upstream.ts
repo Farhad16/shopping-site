@@ -1,5 +1,4 @@
 import Product from "../../models/Product";
-import User from "../../models/User";
 import db from "../../utils/db";
 import { data } from "../../utils/staticData";
 

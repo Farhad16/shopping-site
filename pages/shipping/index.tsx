@@ -1,4 +1,4 @@
-import React, { useEffect, useState, memo } from "react";
+import React, { useEffect, memo } from "react";
 import Layout from "../../components/Layout";
 import StepHandler from "../../ui/StepHandler";
 import { useSession } from "next-auth/react";

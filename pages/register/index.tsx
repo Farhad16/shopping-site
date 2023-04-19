@@ -38,7 +38,7 @@ function Register() {
     },
   });
 
-  const onSubmit = async ({ email, password, cpassword, name }: any) => {
+  const onSubmit = async ({ email, password, name }: any) => {
     setLoading(true);
     try {
       await axios.post("/api/auth/signup", {
