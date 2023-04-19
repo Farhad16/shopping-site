@@ -8,8 +8,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { CircularProgress } from "@mui/material";
 import PasswordInput from "../../ui/PasswordInput";
 import FormInput from "../../ui/FormInput";
+import axios from "axios";
 
-function Login() {
+function Register() {
   const { data: session } = useSession();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -25,21 +26,31 @@ function Login() {
   const {
     handleSubmit,
     control,
+    getValues,
+    setError,
     formState: { errors },
   } = useForm({
     defaultValues: {
+      name: "",
       email: "",
       password: "",
+      cpassword: "",
     },
   });
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async ({ email, password, cpassword, name }: any) => {
     setLoading(true);
     try {
+      await axios.post("/api/auth/signup", {
+        name,
+        email,
+        password,
+      });
+
       const result = await signIn("credentials", {
         redirect: false,
-        email: data.email,
-        password: data.password,
+        email: email,
+        password: password,
       });
       if (result?.error) {
         toast.error(result.error);
@@ -53,6 +64,15 @@ function Login() {
     }
   };
 
+  const matchPassword = (event: any) => {
+    const cpassword = event.target.value;
+    const password = getValues("password");
+
+    if (password !== cpassword) {
+      setError("cpassword", { message: "Password mismatch" });
+    } else setError("cpassword", { message: "" });
+  };
+
   return (
     <>
       {session?.user ? (
@@ -60,12 +80,25 @@ function Login() {
           <CircularProgress className="absolute top-[50%] right-[50%]" />
         </Layout>
       ) : (
-        <Layout title="Login">
+        <Layout title="Register">
           <form
             className="w-full md:max-w-screen-sm mx-auto bg-white rounded-lg p-6 shadow space-y-5"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <h1 className="text-center font-bold text-lg uppercase">Login</h1>
+            <h1 className="text-center font-bold text-lg uppercase">
+              Create account
+            </h1>
+            <FormInput
+              label="Full name *"
+              rules={{
+                required: { message: "Name is required", value: true },
+              }}
+              error={errors?.name?.message || ""}
+              name="name"
+              placeholder="Enter your name"
+              type="text"
+              control={control}
+            />
             <FormInput
               label="Your Email *"
               control={control}
@@ -92,6 +125,15 @@ function Login() {
               name="password"
               placeholder="Enter your password"
             />
+            <PasswordInput
+              label="Re-type Password *"
+              control={control}
+              inputClassName="text-sm py-3 text-black"
+              error={errors?.cpassword?.message}
+              onBlur={(e: any) => matchPassword(e)}
+              name="cpassword"
+              placeholder="Re-type your password"
+            />
             <button
               className="cart-btn font-semibold h-[45px] w-full"
               type="submit"
@@ -106,12 +148,12 @@ function Login() {
             <div className="flex justify-between text-[14px] flex-row items-center">
               <Link href="/forgot-password">Forgot password?</Link>
               <p>
-                Don&apos;t have an account?
+                Already have an account?
                 <Link
-                  href={`/register?redirect=${redirect || "/"}`}
+                  href={`/login?redirect=${redirect || "/"}`}
                   className="font-semibold ml-2 underline"
                 >
-                  Register
+                  Login
                 </Link>
               </p>
             </div>
@@ -122,4 +164,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;

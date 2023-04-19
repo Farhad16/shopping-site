@@ -26,15 +26,15 @@ export default NextAuth({
       async authorize(credentials: any) {
         await db.connect();
         const user = await User.findOne({
-          email: credentials.email,
+          email: credentials?.email,
         });
         await db.disconnect();
-        if (user && bcrypt.compareSync(credentials.password, user.password)) {
+        if (user && bcrypt.compareSync(credentials?.password, user?.password)) {
           return {
             _id: user._id,
             name: user.name,
             email: user.email,
-            image: "tt",
+            image: "f",
             isAdmin: user.isAdmin,
           };
         }

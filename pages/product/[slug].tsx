@@ -1,30 +1,30 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 import Layout from "../../components/Layout";
-import { data } from "../../utils/staticData";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import Image from "next/image";
 import Link from "next/link";
 import { ProductEnum, useProductContext } from "../../utils/Product.store";
-import { IProduct } from "./interfaces/product.interface";
 import { toast } from "react-toastify";
+import db from "../../utils/db";
+import Product from "../../models/Product";
+import axios from "axios";
 
-const ProductDetails = () => {
+export default function ProductDetails({ product }: any) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const slug = searchParams.get("slug");
-  const product = data?.products.find((pro: IProduct) => pro.slug === slug);
   const { state, dispatch } = useProductContext();
 
-  if (!product) return <div>Product not found</div>;
+  if (!product)
+    return <Layout title="Product not found">Product not found</Layout>;
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     const existItem = state?.cart?.cartItems.find(
       (item: any) => item.slug === product?.slug
     );
     const quantity = existItem ? existItem.quantity + 1 : 1;
+    const { data } = await axios.get(`/api/products/${product._id}`);
 
-    if (quantity > product.stock) {
+    if (data.stock < quantity) {
       toast.error("Product is out of stock", {
         position: "bottom-left",
         theme: "colored",
@@ -35,6 +35,11 @@ const ProductDetails = () => {
     dispatch({
       type: ProductEnum.ADD_TO_CART,
       payload: { ...product, quantity: quantity },
+    });
+
+    toast.success("Product added in the cart", {
+      position: "bottom-left",
+      theme: "colored",
     });
     router.push("/cart");
   };
@@ -75,7 +80,7 @@ const ProductDetails = () => {
               <span>{product?.stock ? "In stock" : "Unavailable"}</span>
             </div>
             <button
-              className="cart-btn"
+              className="cart-btn w-full"
               type="button"
               onClick={handleAddToCart}
             >
@@ -86,6 +91,18 @@ const ProductDetails = () => {
       </div>
     </Layout>
   );
-};
+}
 
-export default ProductDetails;
+export async function getServerSideProps(context: any) {
+  const { params } = context;
+  const { slug } = params;
+
+  await db.connect();
+  const product = await Product?.findOne({ slug }).lean();
+  await db.disconnect();
+  return {
+    props: {
+      product: product ? db.convertDocToString(product) : null,
+    },
+  };
+}

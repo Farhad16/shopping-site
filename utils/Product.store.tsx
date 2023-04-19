@@ -7,6 +7,7 @@ export enum ProductEnum {
   CART_RESET = "reset_cart",
   SAVE_SHIPPING_ADDRESS = "save_shipping_address",
   SAVE_PAYMENT_METHOD = "save_payment_method",
+  CART_CLEAR = "cart_clear",
 }
 
 export const ProductStore = createContext({} as any);
@@ -72,6 +73,15 @@ function reducer(state: any, action: any) {
         cart: {
           ...state.cart,
           paymentMethod: action.payload,
+        },
+      };
+    }
+    case ProductEnum.CART_CLEAR: {
+      return {
+        ...state,
+        cart: {
+          ...state.cart,
+          cartItems: [],
         },
       };
     }

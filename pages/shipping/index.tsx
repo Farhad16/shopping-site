@@ -1,42 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 import Layout from "../../components/Layout";
-import StepHandler from "./Stepper";
+import StepHandler from "../../ui/StepHandler";
 import { useSession } from "next-auth/react";
 import ShippingForm from "./ShippingForm";
-import Payment from "../payment/Payment";
-
+import { useRouter } from "next/navigation";
 function Shipping() {
-  const [activeStep, setActiveStep] = useState(0);
   const { data: session } = useSession();
+  const router = useRouter();
 
   useEffect(() => {
-    if (session?.user) {
-      setActiveStep(1);
+    if (!session?.user) {
+      router.push("/login");
     }
-  }, []);
-
-  const steps: any = {
-    1: <ShippingForm setActiveStep={setActiveStep} />,
-    2: <Payment setActiveStep={setActiveStep} />,
-  };
+  }, [session?.user]);
 
   return (
     <Layout title="Shipping">
-      <StepHandler activeStep={activeStep} setActiveStep={setActiveStep} />
-      {Object.keys(steps).map((step) => (
-        <div
-          key={`shipping-class-step-${step}`}
-          style={{
-            display:
-              activeStep.toString() === step.toString() ? "block" : "none",
-          }}
-        >
-          {steps[step]}
-        </div>
-      ))}
+      <StepHandler activeStep={1} />
+      <ShippingForm />
     </Layout>
   );
 }
 
 Shipping.auth = true;
-export default Shipping;
+export default memo(Shipping);

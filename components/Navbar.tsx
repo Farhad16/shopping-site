@@ -26,7 +26,7 @@ function Navbar() {
   }, [cart?.cartItems]);
 
   return (
-    <nav className="flex h-12 justify-between shadow-md items-center px-12">
+    <nav className="flex h-12 justify-between shadow-md items-center px-4 md:  sticky">
       <Link href="/">
         <span className="text-lg font-bold font-[Pasifico]">Easy Shop</span>
       </Link>
@@ -47,7 +47,7 @@ function Navbar() {
                 </Avatar>
               </Tooltip>
             </Menu.Button>
-            <ProfilePopup user={session.user} />
+            <ProfilePopup />
           </Menu>
         ) : (
           <Link href="/login">Login</Link>

@@ -2,6 +2,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { useSession } from "next-auth/react";
 import { CircularProgress } from "@mui/material";
+import Layout from "../../components/Layout";
 
 function Auth({ children }: any) {
   const router = useRouter();
@@ -13,7 +14,11 @@ function Auth({ children }: any) {
   });
 
   if (status === "loading") {
-    return <CircularProgress />;
+    return (
+      <Layout>
+        <CircularProgress className="absolute top-[50%] left-[50%]" />;
+      </Layout>
+    );
   }
   return children;
 }

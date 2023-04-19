@@ -10,8 +10,11 @@ function PasswordInput({
   controllerClassName,
   inputClassName,
   control,
-  errors,
+  error,
   label,
+  name,
+  placeholder,
+  onBlur,
 }: any) {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -28,7 +31,7 @@ function PasswordInput({
       <span className="font-semibold">{label}</span>
       <div className={`${controllerClassName}, mt-2`}>
         <Controller
-          name="password"
+          name={name}
           control={control}
           rules={{
             required: { message: "Password required", value: true },
@@ -40,7 +43,7 @@ function PasswordInput({
           render={({ field }) => (
             <TextField
               {...field}
-              placeholder="Enter your password"
+              placeholder={placeholder}
               fullWidth
               size="small"
               type={showPassword ? "text" : "password"}
@@ -48,6 +51,7 @@ function PasswordInput({
               inputProps={{
                 className: inputClassName,
               }}
+              onBlur={onBlur}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -65,9 +69,7 @@ function PasswordInput({
             />
           )}
         />
-        {errors.password && (
-          <p className="text-sm text-red-500">{errors?.password?.message}</p>
-        )}
+        {error && <p className="text-sm font-semibold errorColor">{error}</p>}
       </div>
     </div>
   );
