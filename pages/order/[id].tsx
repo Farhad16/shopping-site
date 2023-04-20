@@ -32,7 +32,7 @@ function reducer(state: any, action: any) {
 function OrderDetails() {
   const { query } = useRouter();
   const { id } = query;
-  const [_, paypalDispatch] = usePayPalScriptReducer();
+  const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
 
   const [{ loading, error, order, successPay, loadingPay }, dispatch] =
     useReducer(reducer, {
@@ -228,17 +228,17 @@ function OrderDetails() {
                 </li>
                 {!isPaid && (
                   <li>
-                    {/* {isPending ? (
+                    {isPending ? (
                       <div>Loading...</div>
-                    ) : ( */}
-                    <div className="w-full">
-                      <PayPalButtons
-                        createOrder={createOrder}
-                        onApprove={onApprove}
-                        onError={onError}
-                      ></PayPalButtons>
-                    </div>
-                    {/* )} */}
+                    ) : (
+                      <div className="w-full">
+                        <PayPalButtons
+                          createOrder={createOrder}
+                          onApprove={onApprove}
+                          onError={onError}
+                        ></PayPalButtons>
+                      </div>
+                    )}
                     {loadingPay && <div>Loading...</div>}
                   </li>
                 )}
