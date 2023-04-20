@@ -6,6 +6,7 @@ import { Notification } from "./notification/Notification";
 import { SessionProvider } from "next-auth/react";
 import Auth from "./auth/Auth";
 import type { NextComponentType } from "next";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 type CustomAppProps = AppProps & {
   Component: NextComponentType & { auth?: boolean };
@@ -18,14 +19,19 @@ export default function App({
   return (
     <SessionProvider session={session}>
       <ProductStoreProvider>
-        {Component.auth ? (
-          <Auth>
+        <PayPalScriptProvider
+          deferLoading={true}
+          options={{ "client-id": process.env.NEXT_PUBLIC_PAYPAL_CLIENT || "" }}
+        >
+          {Component.auth ? (
+            <Auth>
+              <Component {...pageProps} />
+            </Auth>
+          ) : (
             <Component {...pageProps} />
-          </Auth>
-        ) : (
-          <Component {...pageProps} />
-        )}
-        <Notification />
+          )}
+          <Notification />
+        </PayPalScriptProvider>
       </ProductStoreProvider>
     </SessionProvider>
   );
