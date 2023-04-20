@@ -26,7 +26,7 @@ function ProfilePopup() {
     {
       title: "Oder Histoy",
       icon: <HistoryIcon className="w-[20px]" />,
-      url: "/order-history",
+      url: "/order_history",
     },
     {
       title: "Logout",
