@@ -32,7 +32,7 @@ function reducer(state: any, action: any) {
 function OrderDetails() {
   const { query } = useRouter();
   const { id } = query;
-  const [{ isPending, ...rest }, paypalDispatch] = usePayPalScriptReducer();
+  const [_, paypalDispatch] = usePayPalScriptReducer();
 
   const [{ loading, error, order, successPay, loadingPay }, dispatch] =
     useReducer(reducer, {
