@@ -67,7 +67,7 @@ function OrderDetails() {
             currency: "USD",
           },
         });
-        paypalDispatch({ type: "setLoadingStatus", value: "pending" });
+        // paypalDispatch({ type: "setLoadingStatus", value: "pending" });
       };
       loadPaypalScript();
     }
