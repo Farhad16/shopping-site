@@ -6,8 +6,9 @@ declare module "next-auth" {
    */
   interface Session {
     user: {
-      _id: string;
-      name: string;
+      _id?: string;
+      name?: string;
+      isAdmin?: boolean;
     };
   }
 }
