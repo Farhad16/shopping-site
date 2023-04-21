@@ -8,10 +8,14 @@ const handler = async (req: any, res: any) => {
     return res.status(401).send("You must be logged in");
   }
 
-  await db.connect();
+  const { user } = session;
 
-  const order = await Order.findById(req.query.id);
-  db.disconnect();
+  await db.connect();
+  const newOrder = new Order({
+    ...req.body,
+    user: user?._id,
+  });
+  const order = await newOrder.save();
   res.status(201).send(order);
 };
 
