@@ -3,7 +3,7 @@ import React from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export function Notification() {
+function Notification() {
   return (
     <div>
       <ToastContainer
@@ -21,3 +21,5 @@ export function Notification() {
     </div>
   );
 }
+
+export default Notification;
