@@ -37,7 +37,7 @@ function PlaceOrder() {
   const hanldePlaceOrder = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.post("/api/orders", {
+      const { data } = await axios.post("/api/place_order", {
         orderItems: cartItems,
         shippingAddress,
         itemsPrice,
