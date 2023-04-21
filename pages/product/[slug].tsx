@@ -9,15 +9,18 @@ import { toast } from "react-toastify";
 import db from "../../utils/db";
 import Product from "../../models/Product";
 import axios from "axios";
+import { CircularProgress } from "@mui/material";
 
 export default function ProductDetails({ product }: any) {
   const router = useRouter();
   const { state, dispatch } = useProductContext();
+  const [loading, setLoading] = React.useState(false);
 
   if (!product)
     return <Layout title="Product not found">Product not found</Layout>;
 
   const handleAddToCart = async () => {
+    setLoading(true);
     const existItem = state?.cart?.cartItems.find(
       (item: any) => item.slug === product?.slug
     );
@@ -41,6 +44,7 @@ export default function ProductDetails({ product }: any) {
       position: "bottom-left",
       theme: "colored",
     });
+    setLoading(false);
     router.push("/cart");
   };
 
@@ -84,7 +88,11 @@ export default function ProductDetails({ product }: any) {
               type="button"
               onClick={handleAddToCart}
             >
-              Add to Cart
+              {loading ? (
+                <CircularProgress size="20px" className="text-white" />
+              ) : (
+                "Add to Cart"
+              )}
             </button>
           </div>
         </div>

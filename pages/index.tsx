@@ -10,8 +10,10 @@ import axios from "axios";
 
 export default function Home({ products }: any) {
   const { state, dispatch } = useProductContext();
+  const [loading, setLoading] = React.useState(false);
 
   const handleAddToCart = async (product: any) => {
+    setLoading(true);
     const existItem = state?.cart?.cartItems.find(
       (item: any) => item.slug === product?.slug
     );
@@ -35,6 +37,7 @@ export default function Home({ products }: any) {
       position: "bottom-left",
       theme: "colored",
     });
+    setLoading(false);
   };
 
   return (

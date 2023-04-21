@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-const Products = ({ product, handleAddToCart }: any) => {
+const Products = ({ product, handleAddToCart, loading }: any) => {
   return (
     <div className="card">
       <Link href={`/product/${product.slug}`}>
@@ -22,6 +22,7 @@ const Products = ({ product, handleAddToCart }: any) => {
           className="cart-btn w-full"
           type="button"
           onClick={() => handleAddToCart(product)}
+          disabled={loading}
         >
           Add to Cart
         </button>
