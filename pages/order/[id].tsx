@@ -33,6 +33,7 @@ function OrderDetails() {
   const { query } = useRouter();
   const { id } = query;
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
+  console.log(isPending);
 
   const [{ loading, error, order, successPay, loadingPay }, dispatch] =
     useReducer(reducer, {
@@ -67,7 +68,7 @@ function OrderDetails() {
             currency: "USD",
           },
         });
-        // paypalDispatch({ type: "setLoadingStatus", value: "pending" });
+        paypalDispatch({ type: "setLoadingStatus", value: "pending" });
       };
       loadPaypalScript();
     }
@@ -228,17 +229,17 @@ function OrderDetails() {
                 </li>
                 {!isPaid && (
                   <li>
-                    {isPending ? (
+                    {/* {isPending ? (
                       <div>Loading...</div>
-                    ) : (
-                      <div className="w-full">
-                        <PayPalButtons
-                          createOrder={createOrder}
-                          onApprove={onApprove}
-                          onError={onError}
-                        ></PayPalButtons>
-                      </div>
-                    )}
+                    ) : ( */}
+                    <div className="w-full">
+                      <PayPalButtons
+                        createOrder={createOrder}
+                        onApprove={onApprove}
+                        onError={onError}
+                      ></PayPalButtons>
+                    </div>
+                    {/* )} */}
                     {loadingPay && <div>Loading...</div>}
                   </li>
                 )}
