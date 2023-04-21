@@ -48,6 +48,7 @@ export default function Home({ products }: any) {
             key={product.name}
             product={product}
             handleAddToCart={handleAddToCart}
+            loading={loading}
           />
         ))}
       </div>
