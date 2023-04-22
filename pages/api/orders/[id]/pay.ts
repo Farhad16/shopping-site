@@ -3,11 +3,6 @@ import db from "../../../../utils/db";
 import Order from "../../../../models/Order";
 
 const handler = async (req: any, res: any) => {
-  const session = await getSession({ req });
-  if (!session) {
-    return res.status(401).send("You must be logged in");
-  }
-
   await db.connect();
   await db.connect();
   const order = await Order.findById(req.query.id);

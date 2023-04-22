@@ -122,6 +122,8 @@ function OrderDetails() {
     toast.error(err);
   }
 
+  console.log(isPaid);
+
   return (
     <Layout title="Order Details">
       <h1 className="mb-4 text-xl font-semibold">{`Order ${id}`}</h1>
